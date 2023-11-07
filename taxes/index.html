@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script>
+
+		let tauxTaxeDeBase = 0.2;
+
+		function calculerTaxe(montantVente) {
+			let tauxTaxe = montantVente > 100 ? tauxTaxeDeBase - 0.05 : tauxTaxeDeBase;
+			return montantVente * tauxTaxe;
+		}
+
+		for (let montantVente = 50; montantVente <= 200; montantVente += 10) {
+			let taxe = calculerTaxe(montantVente).toFixed(2);
+			console.log(`Pour une vente de ${montantVente} euros, la taxe est de ${taxe} euros.`);
+		}
+
+		const ventes = [50,60,70,80,90,100,110,120,130,140];
+
+		ventes.forEach(montantVente => {
+			let taxe = calculerTaxe(montantVente);
+			console.log(`Pour une vente de ${montantVente} euros, la taxe est de ${taxe.toFixed(2)} euros.`);
+		});
+
+		const ventesTaxees = ventes.map(montantVente => calculerTaxe(montantVente).toFixed(2));
+		console.log("Ventes taxées: " + ventesTaxees);
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cours JavaScript</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="style.css">
+	<script>
+		// Stockage des tâches
+
+		// Fonction pour actualiser l'horloge toutes les secondes : new Date(), setTimeout(), toLocaleTimeString()
+		// Déclencher la fonction horloge au chargement de la page
+
+		// Écoute du DOM pour initialiser le bouton et la liste de tâches : addEventListener(), DOMContentLoaded
+		// Fonction pour cacher l'horloge : style.display | classList.toggle()
+		// Écoute du DOM pour ajouter une tâche : addEventListener(), keyup, key === 'Enter'
+
+
+		// Fonction pour ajouter une nouvelle tâche
+		// Recharger la liste des tâches
+
+		// Fonction pour afficher les tâches
+		// Récupérer les div pour les tâches à faire et les tâches terminées
+		// Pour chaque tache de la liste, créer un li, un checkbox, un label et un bouton
+		// Cocher/décocher la tâche
+		// Supprimer la tâche
+		// Appliquer le style et ajouter à la liste appropriée
+	</script>
+</head>
+
+<body>
+	<h1>To-Do List</h1>
+	<div class="horloge">
+		<p id='tog'>Il est actuellement <span id='heure'></span></p>
+		<button id='bouton'>👁</button>
+	</div>
+	<div class="add_task">
+		<input type="text" id="input" placeholder="Ajouter une nouvelle tâche">
+		<button onclick="addTask()">Ajouter</button>
+	</div>
+	<h2>Tâches à faire</h2>
+	<ul id="tasks-unchecked"></ul>
+	<h2>Tâches terminées</h2>
+	<ul id="tasks-checked"></ul>
+</body>
+
+</html>

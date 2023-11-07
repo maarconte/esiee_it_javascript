@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script>
+		// Code JavaScript pour un jeu de devinettes en console
+
+		// La bonne réponse est un nombre aléatoire entre 1 et 10
+		const bonneReponse = Math.floor(Math.random() * 10) + 1;
+		// Initialiser le nombre d'essais
+		let essais = 3;
+
+		console.log('Bienvenue dans le jeu de devinettes !');
+		console.log('Devinez le nombre entre 1 et 10. Vous avez 3 essais.');
+
+		// Fonction pour jouer le jeu
+		function jouer() {
+			// Demander à l'utilisateur de saisir un nombre dans la console
+			const reponseUtilisateur = prompt('Entrez votre réponse :');
+
+			// Convertir la réponse en nombre
+			const reponseNumerique = parseInt(reponseUtilisateur,10);
+
+			// Vérifier si la réponse est un nombre
+			if (isNaN(reponseNumerique) || (reponseNumerique < 1 || reponseNumerique > 10)) {
+				console.log('Ce n\'est pas un nombre valide. Veuillez saisir un nombre.');
+				return;
+			}
+
+			// Réduire le nombre d'essais
+			essais--;
+
+			// Vérifier si la réponse est correcte
+			if (reponseNumerique === bonneReponse) {
+				console.log('Bravo ! Vous avez trouvé la bonne réponse.');
+				return;
+			} else if (essais > 0) {
+				// Si la réponse est incorrecte et qu'il reste des essais
+				console.log('Faux ! Essayez à nouveau. Il vous reste ' + essais + ' essais.');
+				jouer(); // Permettre à l'utilisateur de réessayer
+			} else {
+				// Si la réponse est incorrecte et qu'il ne reste plus d'essais
+				console.log('Dommage ! Vous avez utilisé tous vos essais. La bonne réponse était ' + bonneReponse + '.');
+			}
+		}
+
+		// Commencer le jeu
+		jouer();
+
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

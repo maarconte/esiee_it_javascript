@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Cours JavaScript</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1>To-Do List</h1>
+	<div class="horloge">
+		<p id='tog'>Il est actuellement <span id='heure'></span></p>
+		<button id='bouton'>👁</button>
+	</div>
+	<div class="add_task">
+		<input type="text" id="input" placeholder="Ajouter une nouvelle tâche">
+		<button onclick="addTask()">Ajouter</button>
+	</div>
+	<h2>Tâches à faire</h2>
+	<ul id="tasks-unchecked"></ul>
+	<h2>Tâches terminées</h2>
+	<ul id="tasks-checked"></ul>
+
+	<script>
+		// Stockage des tâches
+		let tasks = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
+		// let tasks = []
+
+		displayTasks();
+
+		// Fonction pour actualiser l'horloge toutes les secondes
+		function horloge() {
+			let d = new Date();
+			document.getElementById('heure').innerHTML = d.toLocaleTimeString();
+			setTimeout(horloge,1000);
+		}
+		window.addEventListener('load',horloge);
+
+		// Écoute du DOM pour initialiser le bouton et la liste de tâches
+		document.addEventListener('DOMContentLoaded',function () {
+			document.getElementById('tog').style.display = 'block';
+
+			let cache = document.getElementById('bouton');
+			cache.addEventListener('click',cacheHorloge);
+
+			function cacheHorloge() {
+				let para = document.getElementById('tog');
+				para.style.display = para.style.display == 'block' ? 'none' : 'block';
+			}
+
+			document.getElementById('input').addEventListener('keyup',function (e) {
+				if (e.key === 'Enter') {
+					addTask();
+				}
+			});
+		});
+
+		// Fonction pour ajouter une nouvelle tâche
+		function addTask() {
+			let task = document.getElementById("input").value;
+			tasks.push({ value: task,checked: false });
+
+			document.getElementById("input").value = "";
+			localStorage.setItem("tasks",JSON.stringify(tasks));
+
+			displayTasks();
+		}
+
+		// Fonction pour afficher les tâches
+		function displayTasks() {
+			let taskList = document.getElementById('tasks-unchecked');
+			let taskListChecked = document.getElementById('tasks-checked');
+
+			taskList.innerHTML = "";
+			taskListChecked.innerHTML = "";
+
+			tasks.forEach((task,index) => {
+				let li = document.createElement('li');
+				let checkbox = document.createElement('input');
+				checkbox.type = 'checkbox';
+				checkbox.checked = task.checked;
+
+				let label = document.createElement('label');
+				label.innerText = task.value;
+
+				let button = document.createElement('button');
+				button.innerText = 'X';
+
+				li.appendChild(checkbox);
+				li.appendChild(label);
+				if (!task.checked) {
+					li.appendChild(button);
+				}
+
+				// Cocher/décocher la tâche
+				checkbox.addEventListener('click',function () {
+					task.checked = !task.checked;
+					displayTasks();
+				});
+				// Supprimer la tâche
+				button.addEventListener('click',function () {
+					tasks.splice(index,1);
+					displayTasks();
+				});
+
+				// Appliquer le style et ajouter à la liste appropriée
+				if (task.checked) {
+					li.style.textDecoration = 'line-through';
+					taskListChecked.appendChild(li);
+				} else {
+					taskList.appendChild(li);
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
